@@ -1,7 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -19,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   NewsViewModel newsViewModel = NewsViewModel();
 
-    final format = DateFormat( 'MMMM dd,YYYY');
+    final format = DateFormat( 'MMMM dd,yyyy');
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).height * 1;
@@ -43,17 +41,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: snapshot.data!.articles!.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder:(context,index){
-
                           DateTime dateTime = DateTime.parse(snapshot.data!.articles![index].publishedAt.toString());
                             return  SizedBox(
                                 child: Stack(
                                   alignment: Alignment.center,
                                   children: [
                                     Container(
-                                      height:height * 0.6,
-                                      width: width *.9,
+                                      height:height * 0.8,
+                                      width: width *.5,
                                       padding: EdgeInsets.symmetric(
-                                        horizontal: height * .02,
+                                        horizontal: height * .04,
                                       ),
                                       child:ClipRRect(
                                         borderRadius: BorderRadius.circular(15) ,
@@ -72,13 +69,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                           alignment: Alignment.bottomCenter,
                                           padding:const EdgeInsets.all(15),
                                           child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.center,
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
                                               Container(
-                                                width: width * 0.7,
-                                                child: Text(snapshot.data!.articles![index].title.toString(),maxLines: 2,overflow: TextOverflow.ellipsis,style: GoogleFonts.poppins(fontSize:17,fontWeight:FontWeight.w700),),
+                                                width: width * 0.4,
+                                                child: Text(snapshot.data!.articles![index].title.toString(),maxLines: 3,overflow: TextOverflow.ellipsis,style: GoogleFonts.poppins(fontSize:17,fontWeight:FontWeight.w700),),
                                               ),
+                                              SizedBox(height: height * .09,),
+                                              Container(
+                                                width: width * 0.4,
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text(snapshot.data!.articles![index].source!.name.toString(),maxLines: 3,overflow: TextOverflow.ellipsis,style: GoogleFonts.poppins(fontSize:13,fontWeight:FontWeight.w600,color:Colors.blue),),
+                                                    Text(format.format(dateTime),maxLines: 3,overflow: TextOverflow.ellipsis,style: GoogleFonts.poppins(fontSize:12,fontWeight:FontWeight.w500),),
+                                                  ],
+                                                ),
+                                              )
 
                                             ],
                                           ),
