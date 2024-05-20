@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news_app_api/Routes/RoutesInitializing.dart';
+import 'package:news_app_api/Routes/Routesname.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,7 +11,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp();
+    return const  MaterialApp(
+      title: 'News App',
+      debugShowCheckedModeBanner: false,
+      initialRoute: RoutesName.splashscreen,
+      onGenerateRoute: Routes.generateRoute,
+    );
+
   }
 }
 
