@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,10 +16,14 @@ class HomeScreen extends StatefulWidget {
 }
  enum FilterList {bbcNews,aryNews,independent,cnn,alJazeera}
 class _HomeScreenState extends State<HomeScreen> {
+
+
   NewsViewModel newsViewModel = NewsViewModel();
           FilterList? selectedMenu;
           final format = DateFormat( 'MMMM dd,yyyy');
           String name = 'bbc-news';
+
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).height * 1;
@@ -29,60 +34,69 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         leading: IconButton(onPressed: (){}, icon:Image.asset('images/category_icon.png',height: 30,width: 30,)),
         actions: [
-         PopupMenuButton<FilterList>(
-           initialValue: selectedMenu,
-             icon:const  Icon(Icons.more_vert_outlined,color: Colors.black,),
-             onSelected: (FilterList item) {
-               setState(() {
-                 selectedMenu = item;
-                 if (FilterList.bbcNews == item) {
-                   name = 'bbc-news';
-                 } else if (FilterList.aryNews == item) {
-                   name = 'Ary-news';
-                 } else if (FilterList.independent == item) {
-                   name = 'independent-news';
-                 } else if (FilterList.cnn == item) {
-                   name = 'cnn-news';
-                 } else if (FilterList.alJazeera == item) {
-                   name = 'al-Jazeera';
-                 }
-               });
-             },
-               itemBuilder:
-                   (context) =>
-               <PopupMenuEntry<FilterList>>[
-                 PopupMenuItem(
-                     value: FilterList.bbcNews,
-                     child: Text('BBC News')
+
+        PopupMenuButton<FilterList>(
+        initialValue: selectedMenu,
+        icon:const  Icon(Icons.more_vert_outlined,color: Colors.black,),
+          onSelected: (FilterList item) async {
+            String selectedName = '';
+            if (item.name == FilterList.bbcNews.name) {
+              selectedName = 'bbc-news';
+            } else if (item.name == FilterList.aryNews.name) {
+              selectedName = 'Ary-news';
+            } else if (item.name == FilterList.independent.name) {
+              selectedName = 'independent-news';
+            } else if (item.name == FilterList.cnn.name) {
+              selectedName = 'cnn-news';
+            } else if (item.name == FilterList.alJazeera.name) {
+              selectedName = 'al-jazeera-english';
+            }
+            setState(() {
+              selectedMenu = item;
+            });
+            // Fetch news data and update UI when future completes
+            final newsData = await newsViewModel.fetchNewChannelHeadlinesApi(selectedName);
+            // Update UI with new data
+            setState(() {
+              name = selectedName;
+              // Update newsViewModel data or assign it to a variable used by the UI
+            });
+          },
+        itemBuilder:
+            (context) =>
+        <PopupMenuEntry<FilterList>>[
+          const PopupMenuItem(
+              value: FilterList.bbcNews,
+              child: Text('BBC News')
 
 
-                 ),
-                 PopupMenuItem(
-                     value: FilterList.aryNews,
-                     child: Text('Ary News')
+          ),
+          const PopupMenuItem(
+              value: FilterList.aryNews,
+              child: Text('Ary News')
 
 
-                 ),
-                 PopupMenuItem(
-                     value: FilterList.independent,
-                     child: Text('Independent News')
+          ),
+          const PopupMenuItem(
+              value: FilterList.independent,
+              child: Text('Independent News')
 
 
-                 ),
-                 PopupMenuItem(
-                     value: FilterList.cnn,
-                     child: Text('CNN News')
+          ),
+         const  PopupMenuItem(
+              value: FilterList.cnn,
+              child: Text('CNN News')
 
 
-                 ),
-                 PopupMenuItem(
-                     value: FilterList.alJazeera,
-                     child: Text('Al-Jazeera News')
+          ),
+          const PopupMenuItem(
+              value: FilterList.alJazeera,
+              child: Text('Al-Jazeera-english News')
 
 
-                 )
-               ],
-             ),
+          )
+        ],
+      ),
     ]
     ),
 
