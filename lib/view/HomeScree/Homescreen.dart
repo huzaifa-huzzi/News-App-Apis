@@ -1,7 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -188,6 +186,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return ListView.builder(
                       itemCount: snapshot.data!.articles!.length,
                       shrinkWrap: true,
+                      physics:const  NeverScrollableScrollPhysics(),
                       itemBuilder:(context,index){
                         DateTime dateTime = DateTime.parse(snapshot.data!.articles![index].publishedAt.toString());
                         return  Padding(
@@ -196,7 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: [
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(15) ,
-                                child: CachedNetworkImage(imageUrl: snapshot.data!.articles![index].urlToImage.toString(),fit: BoxFit.cover,height: height  * .3,width: width * .3,placeholder: (context,url) => Container(child: Spinkit2,)  ,errorWidget: (context,url,error) => const Icon(Icons.error_outline,color: Colors.red,),),
+                                child: CachedNetworkImage(imageUrl: snapshot.data!.articles![index].urlToImage.toString(),fit: BoxFit.cover,height: height  * .3,width: width * .2,placeholder: (context,url) => Container(child: Spinkit2,)  ,errorWidget: (context,url,error) => const Icon(Icons.error_outline,color: Colors.red,),),
                               ),
                               Expanded(child: Container(
                                 height:  height * .18,
