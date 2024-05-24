@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
           String name = 'bbc-news';
 
 
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).height * 1;
@@ -42,29 +43,22 @@ class _HomeScreenState extends State<HomeScreen> {
         PopupMenuButton<FilterList>(
         initialValue: selectedMenu,
         icon:const  Icon(Icons.more_vert_outlined,color: Colors.black,),
-          onSelected: (FilterList item) async {
+          onSelected: (FilterList item) {
             String selectedName = '';
-            if (item.name == FilterList.bbcNews.name) {
+            if (item == FilterList.bbcNews) {
               selectedName = 'bbc-news';
-            } else if (item.name == FilterList.aryNews.name) {
-              selectedName = 'Ary-news';
-            } else if (item.name == FilterList.independent.name) {
+            } else if (item == FilterList.aryNews) {
+              selectedName = 'ary-news';
+            } else if (item == FilterList.independent) {
               selectedName = 'independent-news';
-            } else if (item.name == FilterList.cnn.name) {
+            } else if (item == FilterList.cnn) {
               selectedName = 'cnn-news';
-            } else if (item.name == FilterList.alJazeera.name) {
+            } else if (item == FilterList.alJazeera) {
               selectedName = 'al-jazeera-english';
             }
             setState(() {
               selectedMenu = item;
-            });
-            // Fetch news data and update UI when future completes
-            final newsData = await newsViewModel.fetchNewChannelHeadlinesApi(selectedName);
-            // Update UI with new data
-            setState(() {
               name = selectedName;
-              // Update newsViewModel data or assign it to a variable used by the UI
-              newsViewModel.fetchNewsChannelHeadlinesApi();
             });
           },
         itemBuilder:
