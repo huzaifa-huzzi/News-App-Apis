@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_api/Routes/Routesname.dart';
 import 'package:news_app_api/view/Categories/Categories%20_Screen.dart';
+import 'package:news_app_api/view/Detail%20Screen/Detail_Screen.dart';
 import 'package:news_app_api/view/HomeScree/Homescreen.dart';
 import 'package:news_app_api/view/splash%20Screen/SplashScreen.dart';
 
@@ -16,6 +17,8 @@ class Routes{
 
       case RoutesName.categoriesScreen :
         return MaterialPageRoute(builder: (context) => const CategoriesScreen());
+
+
 
 
 

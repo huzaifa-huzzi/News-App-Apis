@@ -6,4 +6,5 @@ class RoutesName{
   //views
  static const String homeScreen = 'HomeScreen.dart';
  static const String categoriesScreen = 'Categories_Screen.dart';
+ static const String detailScreen = 'Detail_Screen.dart';
 }
